@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% block title%} vegetables {%endblock title%}
+{% block body %}
+
+
+   
+<h2 class="text-center ">Your Cart</h2>
+<div class="container ">
+    <div class="row">
+        <!-- Loop through the cart items -->
+        {% for item in cart_items %}
+            <div class="card " style="margin:10px; width: 200px; max-height: 350px;">
+                 
+                    {% if item.vegetable.image %}
+                     <img src="{{ item.vegetable.image.url }}" class="img-fluid " style="  width: 150px; height:100px; object-fit:center;  line-height: 8px;" alt="">
+                   {% endif %}
+              <br>
+                <h3 class="text-center" style="line-height: 8px;">{{ item.vegetable.name }}</h3>
+                <p class="text-center"  style="line-height: 8px;">{{ item.vegetable.description }}</p>
+                <p class="text-center"  style="line-height: 8px;">Price: ₹{{ item.vegetable.price }} </p>
+                <p class="text-center" style="line-height: 8px;">Weight: {{ vegetable.weight_in_kgs }} /kgs </p>
+
+                <a href="{% url 'update_cart' item.id 'decrease' %}" class="text-center">➖</a>
+
+                <p class="text-center"  style="line-height: 8px;">Quantity: {{ item.quantity }}</p>
+
+                <a href="{% url 'update_cart' item.id 'increase' %}" class="text-center">➕</a>
+                
+                
+               
+                <a href="{% url 'remove_from_cart' item.id %}"  class="btn btn-danger btn-block"  style="line-height: 10px;">Remove</a>
+       <br>
+    </div>
+       {% endfor %}
+
+
+      
+        <div class="mt-8">
+            <h3 class="text-center ">Total price :  ₹{{ total_price }}</h3>
+            
+        </div>
+        <a href="{% url 'place_order' %}"class="btn btn-warning btn-block"  style="line-height: 10px; width:auto">place order</a>
+        <a href="{% url 'order' %}"class="btn btn-warning btn-block"  style="line-height: 10px; width:auto">Checkout Orders</a>
+        
+        
+  </div>
+   
+</div>
+
+
+
+{% endblock body %}

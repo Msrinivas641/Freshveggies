@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="text-center">
+<div class="max-w-2xl mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-2xl font-bold text-center mb-4">My Profile</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="text-green-600 text-center mb-2">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <div class="flex flex-col items-center ">
+        <img src="\media\images\xyz.jpg" alt="Profile Picture" class="rounded-circle w-10 h-10 mb-2  text-center">
+        <h3 class="text-lg  font-semibold">{{ user.username }}</h3>
+        <p class="text-gray-500">{{ user.email }}</p>
+    </div>
+
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Username:</label>
+            <input type="text" name="username" value="{{ user.username }}" 
+                   class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-black-700">Email:</label>
+            <input type="email" name="email" value="{{ user.email }}" 
+                   class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Address:</label>
+          <input type="address" name="address" value="{{ user.address }}" 
+                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      
+
+        <button type="submit" 
+                class="background color:warning;">
+            Update Profile
+        </button>
+    </form>
+</div>
+</div>
+{% endblock body %}
