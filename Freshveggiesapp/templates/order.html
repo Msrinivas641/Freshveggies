@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Order Status Styling */
+        .status-box {
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: rgb(11, 6, 6);
+            font-weight: bold;
+        }
+
+       
+        .processing { background-color: blue; }
+        .shipped { background-color: purple; }
+        .delivered { background-color: green; }
+        .cancelled { background-color: red; }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Order Status</h1>
+    
+    
+
+
+
+    {% if orders %}
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Ordered on</th>
+            <th>Order cancel</th>
+           
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>₹{{ order.total_price }}</td>
+            <td><strong>{{ order.status }}</strong></td>
+            <td>{{ order.created_at }}</td>
+
+
+            <td> 
+                {% if order.status == "Processing" %}
+                <form method="post" action="{% url 'cancel_order' order.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded mt-2">
+                        Cancel Order
+                    </button>
+                </form>
+                {% endif %}
+        </td>
+        
+        </tr>
+
+        {% endfor %}
+    </table>
+
+    {% else %}
+    <p>No orders found.</p>
+    {% endif %}
+    
+</body>
+</html>

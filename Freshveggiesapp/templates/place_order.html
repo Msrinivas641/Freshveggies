@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="text-center">
+    <h1 class="text-center">Place Order</h1>
+    <br>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class=" relative flex items-center space-x-4">
+            <label for="address" class=" text-lg font-semibold w-24 text-dark ">Address</label>
+            <textarea name="address" id="address" required 
+                class="w-80 h-50 border border-gray-300 rounded-lg p-3 ">
+            </textarea>
+        </div>
+         <br>    
+        <button type="submit" class="btn btn-warning btn-block text-center" style="line-height: 10px; width:auto;">Order</button>
+        <a href="{% url 'cart' %}"class="btn btn-warning btn-block text-center" style="line-height: 10px; width:auto;">Back to Cart</a>
+                    
+    </form> 
+</div>
+{% endblock body %}
+
